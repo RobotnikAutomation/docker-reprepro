@@ -1,12 +1,20 @@
-FROM debian:wheezy
-MAINTAINER Bruno Binet <bruno.binet@gmail.com>
+FROM debian:buster-20210208-slim
+MAINTAINER Guillem Gari <ggari@robotnik.es>
 
-RUN apt-get update && \
-  DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
-  gnupg reprepro openssh-server
+ENV DEBIAN_FRONTEND=noninteractive \
+	REPREPRO_BASE_DIR=/data/debian
+
+RUN apt-get update \
+  && apt-get install -yq --no-install-recommends \
+      gnupg \
+      reprepro \
+      openssh-server \
+  && apt-get clean -q -y \
+  && apt-get autoremove -q -y \
+  && rm -rf /var/lib/apt/lists/* \
+  && true
 
 RUN mkdir /var/run/sshd
-RUN echo "REPREPRO_BASE_DIR=/data/debian" > /etc/environment
 
 # Configure an reprepro user (admin)
 RUN adduser --system --group --shell /bin/bash --uid 600 --disabled-password --no-create-home reprepro
