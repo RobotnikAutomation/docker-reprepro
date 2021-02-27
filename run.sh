@@ -100,6 +100,15 @@ EOF
     chown -R reprepro:reprepro /data/debian
 fi
 
+cp /config/reprepro-authorized_keys /home/reprepro/.ssh/authorized_keys
+chmod 600 /home/reprepro/.ssh/authorized_keys
+chown reprepro:reprepro /home/reprepro/.ssh/authorized_keys
+
+cp /config/apt-authorized_keys /home/apt/.ssh/authorized_keys
+chmod 600 /home/apt/.ssh/authorized_keys
+chown apt:apt /home/apt/.ssh/authorized_keys
+
+
 echo "=> Starting SSH server..."
-exec /usr/sbin/sshd -f /sshd_config -D -e
+exec /usr/sbin/sshd -D -e
 

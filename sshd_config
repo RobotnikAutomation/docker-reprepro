@@ -23,7 +23,7 @@ PermitRootLogin no
 StrictModes yes
 
 PubkeyAuthentication yes
-AuthorizedKeysFile /config/%u-authorized_keys
+#AuthorizedKeysFile /config/%u-authorized_keys
 
 # Workaround to set the REPREPRO_BASE_DIR environment variable automatically
 ForceCommand export REPREPRO_BASE_DIR=/data/debian; [ -n "$SSH_ORIGINAL_COMMAND" ] && eval "$SSH_ORIGINAL_COMMAND" || exec "$SHELL"
