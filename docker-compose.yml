@@ -1,0 +1,31 @@
+---
+version: "3.7"
+services:
+  repository:
+    build: .
+    ports:
+      - published: 5022
+        target: 22
+        protocol: tcp
+        mode: host
+    volumes:
+      - type: bind
+        source: ./data
+        target: /data
+      - type: bind
+        source: ./config
+        target: /config
+        read_only: true
+    environment:
+      RPP_DISTRIBUTIONS: "kdev;kprod;mdev;mprod"
+      RPP_CODENAME_kdev: "kinetic-dev"
+      RPP_CODENAME_kprod: "kinetic-prod"
+      RPP_CODENAME_mdev: "melodic-dev"
+      RPP_CODENAME_mprod: "melodic-prod"
+      RPP_ARCHITECTURES_kdev: "amd64"
+      RPP_ARCHITECTURES_kprod: "amd64"
+      RPP_ARCHITECTURES_mdev: "amd64"
+      RPP_ARCHITECTURES_mprod: "amd64"
+      RPP_INCOMINGS: "in_kinetic;in_melodic"
+      RPP_ALLOW_in_kinetic: "stable>kinetic-dev"
+      RPP_ALLOW_in_melodic: "stable>melodic-dev"
